@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/auth', authRoutes);
-app.use('/bug', bugRoutes);
+app.use('/bugs', bugRoutes);
 
 mongoose.connect('mongodb://127.0.0.1:27017/bug-report')
  .then(() => console.log('MongoDB connected'));
