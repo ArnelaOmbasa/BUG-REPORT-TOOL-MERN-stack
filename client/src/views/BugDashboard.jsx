@@ -6,9 +6,11 @@ import axiosInstance from '../axios-instance'
 import { Card, CardContent } from '@mui/material';
 import { CardActions } from '@mui/material';
 import { decodeToken } from 'react-jwt';
+import CreateBugModal from './CreateBugModal';
 
 const BugDashboard = () => {
     const [bugs, setBugs] = useState([]); // array of bugs
+    const[isCreateBugModalOpen, setIsCreateBugModalOpen] = useState(false);
    const token=localStorage.getItem('token');
    const user = decodeToken(token);
 
@@ -52,7 +54,8 @@ const BugDashboard = () => {
             </Box>
             <Box sx={{"marginTop": "10px"}}>
                 {
-                    user.role ==='QA'&& <Button variant ="outlined">Create Bug</Button>
+                    user.role ==='QA'&& <Button variant ="outlined" 
+                    onClick={()=>setIsCreateBugModalOpen(true)}>Create Bug</Button>
                 }
                 </Box>
             <Box 
@@ -93,6 +96,12 @@ const BugDashboard = () => {
                     ))}
 
             </Box>
+            {isCreateBugModalOpen && (
+            <CreateBugModal
+             open={isCreateBugModalOpen} 
+             setIsCreateBugModalOpen={setIsCreateBugModalOpen}
+             />
+            )}
         </Box>
     )
 }
