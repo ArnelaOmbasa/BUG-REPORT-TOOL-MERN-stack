@@ -43,17 +43,22 @@ export const changeCompletedStatus = async (req, res) => {
 
 export const getBugsByUserId = async (req, res) => {
     const {userId}=req.params;
+    if (!req.user) {
+        return res.status(401).send({ error: 'User not authenticated' });
+    }
+
+    const {role} = req.user;
 
     //assignedTo developer
     //reportedBy QA
 
    try{
 
-     const user= await User.findById(userId);
+    
      
      let bugs=[];
 
-     if(user.role === ROLES.QA){
+     if(role === ROLES.QA){
         bugs= await Bug.find({reportedBy:userId});
      }
      else{
