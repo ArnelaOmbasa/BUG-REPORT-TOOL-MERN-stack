@@ -18,14 +18,6 @@ export const register = async (req,res) =>{
     catch(er){
         res.status(500).send('Something went wrong');
     }
-
-    
-
-
-
-
-    
-    
 };
 
 export const login = async (req,res) =>{
@@ -46,7 +38,9 @@ export const login = async (req,res) =>{
 
             const token=jwt.sign({
                 id:user._id.toString(),
-                email:user.email
+                email:user.email,
+                role:user.role
+
             },  SECRET, {expiresIn:60*60});
             res.status(200).send({token});
     
